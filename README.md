@@ -23,6 +23,8 @@ apresentar os contatos em uma lista. O banco de dados será o Back4App, que eu t
 
 ## Imagens
 
+Neste momento, estou disponibilizando somente a imagem da modelagem do banco de dado. Para fazer a mesma, eu utilizei o MySQL Workbench.
+
 <p float="left" align="center">
  <img src=https://i.ibb.co/S7y86vx/Modelagem.png width="80%" />
 </p> 
