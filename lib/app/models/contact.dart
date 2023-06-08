@@ -1,12 +1,12 @@
 class Contact {
-  int id;
+  int? id;
   String name;
   String phone;
   String email;
   String profession;
 
   Contact({
-    required this.id,
+    this.id,
     required this.name,
     required this.phone,
     required this.email,
@@ -21,5 +21,15 @@ class Contact {
       'email': email,
       'profession': profession,
     };
+  }
+
+  static Contact fromMap(Map<String, dynamic> map) {
+    return Contact(
+      id: map['id'],
+      name: map['name'],
+      phone: map['phone'],
+      email: map['email'],
+      profession: map['profession'],
+    );
   }
 }
