@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,9 +14,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late final File _imageFile;
   final _formKey = GlobalKey<FormState>();
-  final _nomeController = TextEditingController();
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
-  final _telefoneController = TextEditingController();
+  final _phoneController = TextEditingController();
   final _profissaoController = TextEditingController();
 
   @override
@@ -29,9 +30,38 @@ class _HomePageState extends State<HomePage> {
     final pickedFile = await picker.getImage(
       source: ImageSource.gallery,
     );
-    setState(() {
-      _imageFile = File(pickedFile!.path);
-    });
+    setState(
+      () {
+        _imageFile = File(pickedFile!.path);
+      },
+    );
+  }
+
+  void _saveContact() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+
+      final contactObject = ParseObject('Contact')
+        ..set('name', _nameController.text)
+        ..set('phone', _phoneController.text)
+        ..set('email', _emailController.text)
+        ..set('profession', _profissaoController.text);
+
+      final response = await contactObject.save();
+
+      if (response.success) {
+        // Salvo com sucesso
+        Navigator.pushReplacementNamed(
+          context,
+          'splash_screen',
+        );
+      } else {
+        // Ocorreu um erro ao salvar
+        print(
+          response.error!.message,
+        );
+      }
+    }
   }
 
   @override
@@ -65,13 +95,13 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: _nomeController,
+                controller: _nameController,
                 decoration: const InputDecoration(
                   labelText: 'Nome',
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
-                  if (_nomeController.text.isEmpty) {
+                  if (_nameController.text.isEmpty) {
                     return 'Digite seu nome';
                   }
                   return null;
@@ -79,14 +109,14 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: _telefoneController,
+                controller: _phoneController,
                 decoration: const InputDecoration(
                   labelText: 'Telefone',
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.phone,
                 validator: (value) {
-                  if (_telefoneController.text.isEmpty) {
+                  if (_phoneController.text.isEmpty) {
                     return 'Digite seu telefone';
                   }
                   return null;
@@ -130,11 +160,7 @@ class _HomePageState extends State<HomePage> {
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.black,
                 ),
-                onPressed: () {
-                  if (_formKey.currentState?.validate() != true) {
-                    return;
-                  }
-                },
+                onPressed: _saveContact,
                 child: const Text(
                   'Salvar',
                   style: TextStyle(
