@@ -321,7 +321,7 @@ packages:
     source: hosted
     version: "5.1.2"
   parse_server_sdk_flutter:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: parse_server_sdk_flutter
       sha256: "84218af34b20b442e683d7ed1bc41ae067b929e33624b9cf6996a149645110eb"
