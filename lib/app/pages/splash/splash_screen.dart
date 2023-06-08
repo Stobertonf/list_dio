@@ -45,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             // Texto
             const Text(
-              'Welcome to the new age',
+              'Bem Vindo!',
               style: TextStyle(
                 fontSize: 24,
               ),
