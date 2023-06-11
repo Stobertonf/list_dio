@@ -19,7 +19,7 @@ apresentar os contatos em uma lista. O banco de dados será o Back4App, que eu t
 
 ## Prazo
 
-⚡ Este projeto foi iniciado no dia 08/06/2023.
+⚡ Este projeto foi finalizado no dia 09/06/2023.
 
 ## Imagens
 
